@@ -28,7 +28,7 @@ class FeatureEngineeringPipeline(object):
 
         # Configuración del sistema de logs
         logging.basicConfig(
-            filename='./logging_info_FE.log',
+            filename='./logs/logging_info_FE.log',
             level=logging.INFO,
             filemode='w',
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
