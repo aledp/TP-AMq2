@@ -12,6 +12,9 @@ FECHA:
 import argparse
 import logging
 import pandas as pd
+from sklearn.model_selection import train_test_split, cross_validate, cross_val_score
+from sklearn import metrics
+from sklearn.linear_model import LinearRegression
 
 
 class ModelTrainingPipeline(object):
@@ -46,7 +49,7 @@ class ModelTrainingPipeline(object):
         return processed_data
 
     
-    def model_training(self, processed_data: pd.DataFrame) -> pd.DataFrame:
+    def model_training(self, processed_data_df: pd.DataFrame) -> pd.DataFrame:
         """
         COMPLETAR DOCSTRING
         
@@ -54,16 +57,18 @@ class ModelTrainingPipeline(object):
 
         #----- division en train y test -----
 
-        df_dataset = processed_data.drop(columns=['Item_Identifier', 'Outlet_Identifier'])
+        # Elimnar columnas que son muy específicas
+        df_dataset = processed_data_df.drop(columns=['Item_Identifier', 'Outlet_Identifier'])
 
         # División del dataset de train y test
-        df_train = dataset.loc[data['Set'] == 'train']
-        df_test = dataset.loc[data['Set'] == 'test']
+        df_train = df_dataset.loc[df_dataset['Set'] == 'train']
+        df_test = df_dataset.loc[df_dataset['Set'] == 'test']
 
         # Eliminando columnas sin datos
         df_train.drop(['Set'], axis=1, inplace=True)
         df_test.drop(['Item_Outlet_Sales','Set'], axis=1, inplace=True)
         
+        #----- entrenamiento del modelo -----
 
 
         
