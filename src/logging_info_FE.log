@@ -1,0 +1,58 @@
+2023-10-05 23:50:31 - root - INFO - Carga de datos completa
+2023-10-05 23:50:31 - root - INFO - Iniciando transformación de datos
+2023-10-05 23:50:31 - root - INFO - Variable 'establishment_age':
+count    14204.000000
+mean        21.169319
+std          8.371664
+min         10.000000
+25%         15.000000
+50%         20.000000
+75%         32.000000
+max         34.000000
+Name: establishment_age, dtype: float64
+2023-10-05 23:50:31 - root - INFO - Variable 'Item_Fat_Content' labels:
+['Low Fat' 'Regular']
+2023-10-05 23:50:31 - root - INFO -  17nicial de valores perdidos en "Item_Weight":
+2023-10-05 23:50:34 - root - INFO -  0.000000inal de valores perdidos en "Item_Weight":
+2023-10-05 23:50:34 - root - INFO - missing values imputation: 'Outlet_Size':
+  Outlet_Identifier Outlet_Size
+3            OUT010       Small
+8            OUT045       Small
+9            OUT017       Small
+2023-10-05 23:50:34 - root - INFO - 'Item_Fat_Content': new category NA':
+                Item_Type Item_Fat_Content
+1             Soft Drinks               NA
+3   Fruits and Vegetables               NA
+4               Household               NA
+16     Health and Hygiene               NA
+18            Hard Drinks               NA
+2023-10-05 23:50:34 - root - INFO - 'Item_Type': new categories list:
+['Drinks' 'Meats' 'Fruits and Vegetables' 'Non perishable'
+ 'Processed Foods' 'Starchy Foods']
+2023-10-05 23:50:34 - root - INFO - Item_MRP_Categories:
+[4, 1, 2, 3]
+Categories (4, int64): [1 < 2 < 3 < 4]
+2023-10-05 23:50:34 - root - INFO - Categories boundaries:
+0.00     31.2900
+0.25     94.0120
+0.50    142.2470
+0.75    185.8556
+1.00    266.8884
+Name: Item_MRP, dtype: float64
+2023-10-05 23:50:34 - root - INFO - Outlet_Size dicctionary:
+{'High': 2, 'Medium': 1, 'Small': 0}
+2023-10-05 23:50:34 - root - INFO - Labels Outlet_Size encodded:
+[1 0 2]
+2023-10-05 23:50:34 - root - INFO - Outlet_Location_Type dicctionary:
+{'Tier 1': 2, 'Tier 2': 1, 'Tier 3': 0}
+2023-10-05 23:50:34 - root - INFO - Labels Outlet_Location_Type encodded:
+[2 0 1]
+2023-10-05 23:50:34 - root - INFO - columns after 'Outlet_Type' encoding:
+Index(['Item_Identifier', 'Item_Weight', 'Item_Fat_Content', 'Item_Visibility',
+       'Item_Type', 'Item_MRP', 'Outlet_Identifier', 'establishment_age',
+       'Outlet_Size', 'Outlet_Location_Type', 'Item_Outlet_Sales',
+       'Item_MRP_Categories', 'Outlet_Type_Grocery Store',
+       'Outlet_Type_Supermarket Type1', 'Outlet_Type_Supermarket Type2',
+       'Outlet_Type_Supermarket Type3'],
+      dtype='object')
+2023-10-05 23:50:34 - root - INFO - Transformación de datos completa
