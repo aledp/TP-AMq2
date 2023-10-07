@@ -16,7 +16,7 @@ class ModelTrainingPipeline(object):
 
     # Configuración del sistema de logs
     logging.basicConfig(
-        filename='./logging_info_ModelTrain.log',
+        filename='./logs/logging_info_ModelTrain.log',
         level=logging.INFO,
         filemode='w',
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
