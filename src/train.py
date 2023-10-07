@@ -9,22 +9,25 @@ FECHA:
 """
 
 # Imports
+import argparse
 import logging
 import pandas as pd
 
+
 class ModelTrainingPipeline(object):
 
-    # Configuración del sistema de logs
-    logging.basicConfig(
+    def __init__(self, input_path, model_path):
+        # Configuración del sistema de logs
+        logging.basicConfig(
         filename='./logs/logging_info_ModelTrain.log',
         level=logging.INFO,
         filemode='w',
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
 
-    def __init__(self, input_path, model_path):
+        # seteo de las rutas de input y model
         self.input_path = input_path
-        self.model_path = model_path
+        self.output_path = model_path
 
     def read_data(self) -> pd.DataFrame:
         """
@@ -35,19 +38,34 @@ class ModelTrainingPipeline(object):
         """
             
         # Cargar los datos de input
-        train_data = pd.read_csv(self.input_path)
+        processed_data = pd.read_csv(self.input_path)
 
         # loggin
-        logging.info("Carga de datos completa")
+        logging.info("Carga de datos completa. Columnas del dataset:\n%s", processed_data.columns)
 
-        return train_data
+        return processed_data
 
     
-    def model_training(self, df: pd.DataFrame) -> pd.DataFrame:
+    def model_training(self, processed_data: pd.DataFrame) -> pd.DataFrame:
         """
         COMPLETAR DOCSTRING
         
         """
+
+        #----- division en train y test -----
+
+        df_dataset = processed_data.drop(columns=['Item_Identifier', 'Outlet_Identifier'])
+
+        # División del dataset de train y test
+        df_train = dataset.loc[data['Set'] == 'train']
+        df_test = dataset.loc[data['Set'] == 'test']
+
+        # Eliminando columnas sin datos
+        df_train.drop(['Set'], axis=1, inplace=True)
+        df_test.drop(['Item_Outlet_Sales','Set'], axis=1, inplace=True)
+        
+
+
         
         # COMPLETAR CON CÓDIGO
         
@@ -65,8 +83,8 @@ class ModelTrainingPipeline(object):
 
     def run(self):
     
-        df = self.read_data()
-        model_trained = self.model_training(df)
+        processed_data = self.read_data()
+        model_trained = self.model_training(processed_data)
         self.model_dump(model_trained)
 
 if __name__ == "__main__":
@@ -75,8 +93,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", "-i", required=True,
                         help="Path to the first input")
-    parser.add_argument("--output", "-o", required=True,
-                        help="Path to the output CSV file")
+    parser.add_argument("--model", "-m", required=True,
+                        help="Path to the output model")
 
     # Parsear los argumentos de la línea de comandos
     args = parser.parse_args()
@@ -84,4 +102,5 @@ if __name__ == "__main__":
     # run ModelTrainingPipeline
     ModelTrainingPipeline(
         input_path=args.input,
-        output_path=args.output).run()
+        model_path=args.model).run()
+    

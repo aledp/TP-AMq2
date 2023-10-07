@@ -48,27 +48,28 @@ class FeatureEngineeringPipeline(object):
         """
 
         # Cargar los datos de input_1
-        raw_data_1 = pd.read_csv(self.input_path_1)
+        raw_data_df_1 = pd.read_csv(self.input_path_1)
 
         # Verificar si input_2 fue proporcionado
         if args.input2:
-            raw_data_2 = pd.read_csv(self.input_path_2)
+            raw_data_df_2 = pd.read_csv(self.input_path_2)
             # Concatenar los DataFrames solo si raw_data_2 fue cargado
             # exitosamente
-            raw_data = pd.concat([raw_data_1, raw_data_2], ignore_index=True)
+            raw_data_df = pd.concat(
+                [raw_data_df_1, raw_data_df_2], ignore_index=True)
         else:
             # Si no se proporcionó input_path_2, raw_data será igual a data1
-            raw_data = raw_data_1
-        #### ver >>> eso se podria haber hecho con manejo de errores??
+            raw_data_df = raw_data_df_1
+        # ver >>> eso se podria haber hecho con manejo de errores??
 
         # loggin
         logging.info("Carga de datos completa")
 
-        return raw_data
+        return raw_data_df
 
     def data_transformation(
             self,
-            raw_data: pd.DataFrame) -> pd.DataFrame:
+            raw_data_df: pd.DataFrame) -> pd.DataFrame:
         """
         Perform data transformation steps.
         :return df: return procecced data. Columns: 'Item_Identifier',
@@ -86,23 +87,21 @@ class FeatureEngineeringPipeline(object):
 
         reference_year = 2019
 
-        raw_data['Outlet_Establishment_Year'] = (
-            reference_year - raw_data['Outlet_Establishment_Year'])
-        raw_data = raw_data.rename(columns={'Outlet_Establishment_Year':
-                                            'establishment_age'})
+        raw_data_df['Outlet_Establishment_Year'] = (
+            reference_year - raw_data_df['Outlet_Establishment_Year'])
+        raw_data_df = raw_data_df.rename(columns={'Outlet_Establishment_Year':
+                                                  'establishment_age'})
 
         # loggin
-        description = raw_data['establishment_age'].describe()
+        description = raw_data_df['establishment_age'].describe()
         logging.info("Variable 'establishment_age':\n%s", description)
 
         # -------- labels unification:'Item_Fat_Content' --------
-        raw_data['Item_Fat_Content'] = raw_data['Item_Fat_Content'].replace(
-            {'low fat': 'Low Fat',
-             'LF': 'Low Fat',
-             'reg': 'Regular'})
+        raw_data_df['Item_Fat_Content'] = raw_data_df['Item_Fat_Content'].replace(
+            {'low fat': 'Low Fat', 'LF': 'Low Fat', 'reg': 'Regular'})
 
         # loggin
-        labels = raw_data['Item_Fat_Content'].unique()
+        labels = raw_data_df['Item_Fat_Content'].unique()
         logging.info("Variable 'Item_Fat_Content' labels:\n%s", labels)
 
         # -------- missing values imputation: 'Item_Weight' --------
@@ -110,33 +109,36 @@ class FeatureEngineeringPipeline(object):
         # loggin
         logging.info(
             '% inicial de valores perdidos en "Item_Weight":',
-            raw_data['Item_Weight'].isnull().sum() /
-            len(raw_data) *
+            raw_data_df['Item_Weight'].isnull().sum() /
+            len(raw_data_df) *
             100)
 
-        null_rows = raw_data[raw_data['Item_Weight'].isnull()]
+        null_rows = raw_data_df[raw_data_df['Item_Weight'].isnull()]
         null_labels = list(null_rows['Item_Identifier'].unique())
 
         for product in null_labels:
-            mode = raw_data.loc[raw_data['Item_Identifier'] == product,
-                                'Item_Weight'].mode()
+            mode = raw_data_df.loc[raw_data_df['Item_Identifier'] == product,
+                                   'Item_Weight'].mode()
             mode = mode.max()
-            raw_data.loc[raw_data['Item_Identifier'] == product,
-                         'Item_Weight'] = mode
+            raw_data_df.loc[raw_data_df['Item_Identifier'] == product,
+                            'Item_Weight'] = mode
 
-        logging.info('% final de valores perdidos en "Item_Weight":',
-                     raw_data['Item_Weight'].isnull().sum() / len(raw_data) * 100)
+        logging.info(
+            '% final de valores perdidos en "Item_Weight":',
+            raw_data_df['Item_Weight'].isnull().sum() /
+            len(raw_data_df) *
+            100)
 
         # -------- missing values imputation: 'Outlet_Size' --------
 
         outlets_size_null = list(
-            raw_data[raw_data['Outlet_Size'].isnull()]['Outlet_Identifier'].unique())
+            raw_data_df[raw_data_df['Outlet_Size'].isnull()]['Outlet_Identifier'].unique())
 
-        raw_data.loc[raw_data['Outlet_Identifier']
-                     .isin(outlets_size_null), 'Outlet_Size'] = 'Small'
+        raw_data_df.loc[raw_data_df['Outlet_Identifier']
+                        .isin(outlets_size_null), 'Outlet_Size'] = 'Small'
 
         # loggin
-        unique_pairs = raw_data.loc[raw_data['Outlet_Identifier'].isin(
+        unique_pairs = raw_data_df.loc[raw_data_df['Outlet_Identifier'].isin(
             outlets_size_null), ['Outlet_Identifier', 'Outlet_Size']].drop_duplicates()
         logging.info("missing values imputation: 'Outlet_Size':\n%s",
                      unique_pairs)
@@ -156,18 +158,18 @@ class FeatureEngineeringPipeline(object):
                           'Fruits and Vegetables']
 
         # Recategorización
-        raw_data.loc[raw_data['Item_Type']
-                     .isin(item_type_list), 'Item_Fat_Content'] = 'NA'
+        raw_data_df.loc[raw_data_df['Item_Type']
+                        .isin(item_type_list), 'Item_Fat_Content'] = 'NA'
 
         # loggin
-        unique_pairs = raw_data.loc[raw_data['Item_Type'].isin(
+        unique_pairs = raw_data_df.loc[raw_data_df['Item_Type'].isin(
             item_type_list), ['Item_Type', 'Item_Fat_Content']].drop_duplicates()
         logging.info("'Item_Fat_Content': new category NA':\n%s", unique_pairs)
 
         # -------- 'Item_Type': new categories --------
 
         # Recatogarizando 'Item_Type'
-        raw_data['Item_Type'] = raw_data['Item_Type'].replace(
+        raw_data_df['Item_Type'] = raw_data_df['Item_Type'].replace(
             {
                 'Others': 'Non perishable',
                 'Health and Hygiene': 'Non perishable',
@@ -185,8 +187,8 @@ class FeatureEngineeringPipeline(object):
                 'Dairy': 'Drinks'})
 
         # Recategorización segun 'Item_Fat_Content'
-        raw_data.loc[raw_data['Item_Type'] ==
-                     'Non perishable', 'Item_Fat_Content'] = 'NA'
+        raw_data_df.loc[raw_data_df['Item_Type'] ==
+                        'Non perishable', 'Item_Fat_Content'] = 'NA'
 
         # ver / propuesta de mejora: se propone que este bloque esté antes
         # del bloque de "'Item_Fat_Content': new category" porque sino la
@@ -196,18 +198,18 @@ class FeatureEngineeringPipeline(object):
         # loggin
         logging.info(
             "'Item_Type': new categories list:\n%s",
-            raw_data['Item_Type'].unique())
+            raw_data_df['Item_Type'].unique())
 
         # -------- Encodding: 'Item_MRP' --------
-        n_bins = 4  
+        n_bins = 4
 
         categories = [i + 1 for i in range(n_bins)]
         percentiles = [i * (100 / n_bins) for i in range(n_bins + 1)]
-        boundaries = raw_data['Item_MRP'].quantile(
+        boundaries = raw_data_df['Item_MRP'].quantile(
             [p / 100 for p in percentiles])
 
-        raw_data['Item_MRP_Categories'] = pd.cut(
-            raw_data['Item_MRP'],
+        raw_data_df['Item_MRP_Categories'] = pd.cut(
+            raw_data_df['Item_MRP'],
             bins=boundaries,
             labels=categories,
             include_lowest=True
@@ -215,7 +217,7 @@ class FeatureEngineeringPipeline(object):
 
         # loggin
         logging.info("Item_MRP_Categories:\n%s",
-                     raw_data['Item_MRP_Categories'].unique())
+                     raw_data_df['Item_MRP_Categories'].unique())
 
         logging.info("Categories boundaries:\n%s", boundaries)
 
@@ -226,30 +228,31 @@ class FeatureEngineeringPipeline(object):
         location_dicc = {'Tier 1': 2, 'Tier 2': 1, 'Tier 3': 0}
 
         # Encodding
-        raw_data['Outlet_Size'] = raw_data['Outlet_Size'].replace(size_dicc)
-        raw_data['Outlet_Location_Type'] = raw_data['Outlet_Location_Type'].replace(
+        raw_data_df['Outlet_Size'] = raw_data_df['Outlet_Size'].replace(
+            size_dicc)
+        raw_data_df['Outlet_Location_Type'] = raw_data_df['Outlet_Location_Type'].replace(
             location_dicc)
 
         # loggin
         logging.info("Outlet_Size dicctionary:\n%s", size_dicc)
         logging.info("Labels Outlet_Size encodded:\n%s",
-                     raw_data['Outlet_Size'].unique())
+                     raw_data_df['Outlet_Size'].unique())
         logging.info("Outlet_Location_Type dicctionary:\n%s", location_dicc)
         logging.info("Labels Outlet_Location_Type encodded:\n%s",
-                     raw_data['Outlet_Location_Type'].unique())
+                     raw_data_df['Outlet_Location_Type'].unique())
 
         # -------- Encodding: nominal features --------
 
-        raw_data = pd.get_dummies(raw_data, columns=['Outlet_Type'])
+        raw_data_df = pd.get_dummies(raw_data_df, columns=['Outlet_Type'])
 
         # loggin
         logging.info(
             "columns after 'Outlet_Type' encoding:\n%s",
-            raw_data.columns)
+            raw_data_df.columns)
 
         # -------- End of FeatureEngineering --------
 
-        df_transformed = raw_data
+        df_transformed = raw_data_df
 
         # loggin
         logging.info("Transformación de datos completa")
@@ -275,8 +278,8 @@ class FeatureEngineeringPipeline(object):
         :return raw_df: None
         :rtype: None
         """
-        raw_data = self.read_data()
-        df_transformed = self.data_transformation(raw_data)
+        raw_data_df = self.read_data()
+        df_transformed = self.data_transformation(raw_data_df)
         self.write_prepared_data(df_transformed)
 
 
@@ -299,4 +302,3 @@ if __name__ == "__main__":
         input_path_1=args.input1,
         output_path=args.output,
         input_path_2=args.input2).run()
-    
