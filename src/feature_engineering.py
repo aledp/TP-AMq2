@@ -11,6 +11,7 @@ FECHA: [Date]
 """
 # Imports
 import argparse
+from io import StringIO
 import logging
 import pandas as pd
 
@@ -49,10 +50,12 @@ class FeatureEngineeringPipeline(object):
 
         # Cargar los datos de input_1
         raw_data_df_1 = pd.read_csv(self.input_path_1)
+        raw_data_df_1['Set'] = 'train'
 
         # Verificar si input_2 fue proporcionado
         if args.input2:
             raw_data_df_2 = pd.read_csv(self.input_path_2)
+            raw_data_df_2['Set'] = 'test'
             # Concatenar los DataFrames solo si raw_data_2 fue cargado
             # exitosamente
             raw_data_df = pd.concat(
@@ -208,7 +211,7 @@ class FeatureEngineeringPipeline(object):
         boundaries = raw_data_df['Item_MRP'].quantile(
             [p / 100 for p in percentiles])
 
-        raw_data_df['Item_MRP_Categories'] = pd.cut(
+        raw_data_df['Item_MRP'] = pd.cut(
             raw_data_df['Item_MRP'],
             bins=boundaries,
             labels=categories,
@@ -216,46 +219,57 @@ class FeatureEngineeringPipeline(object):
         )
 
         # loggin
-        logging.info("Item_MRP_Categories:\n%s",
-                     raw_data_df['Item_MRP_Categories'].unique())
+        logging.info("Item_MRP:\n%s",
+                     raw_data_df['Item_MRP'].unique())
 
         logging.info("Categories boundaries:\n%s", boundaries)
 
         # -------- Encodding: ordinal features --------
+
+        raw_data_df_2 = raw_data_df.drop(
+            columns=['Item_Type', 'Item_Fat_Content']).copy()
+        # ver: no entiendo para qué crea el dataframe raw_data_df_2.
+        # Tampoco por qué esta operación está en este bloque.
 
         # diccionario de mapeo para 'Outlet_Size'y 'Outlet_Location_Type'
         size_dicc = {'High': 2, 'Medium': 1, 'Small': 0}
         location_dicc = {'Tier 1': 2, 'Tier 2': 1, 'Tier 3': 0}
 
         # Encodding
-        raw_data_df['Outlet_Size'] = raw_data_df['Outlet_Size'].replace(
+        raw_data_df_2['Outlet_Size'] = raw_data_df_2['Outlet_Size'].replace(
             size_dicc)
-        raw_data_df['Outlet_Location_Type'] = raw_data_df['Outlet_Location_Type'].replace(
+        raw_data_df_2['Outlet_Location_Type'] = raw_data_df_2['Outlet_Location_Type'].replace(
             location_dicc)
 
         # loggin
         logging.info("Outlet_Size dicctionary:\n%s", size_dicc)
         logging.info("Labels Outlet_Size encodded:\n%s",
-                     raw_data_df['Outlet_Size'].unique())
+                     raw_data_df_2['Outlet_Size'].unique())
         logging.info("Outlet_Location_Type dicctionary:\n%s", location_dicc)
         logging.info("Labels Outlet_Location_Type encodded:\n%s",
-                     raw_data_df['Outlet_Location_Type'].unique())
+                     raw_data_df_2['Outlet_Location_Type'].unique())
 
         # -------- Encodding: nominal features --------
 
-        raw_data_df = pd.get_dummies(raw_data_df, columns=['Outlet_Type'])
+        raw_data_df_2 = pd.get_dummies(
+            raw_data_df_2,
+            columns=['Outlet_Type'],
+            dtype='uint8')
 
         # loggin
         logging.info(
             "columns after 'Outlet_Type' encoding:\n%s",
-            raw_data_df.columns)
+            raw_data_df_2.columns)
 
         # -------- End of FeatureEngineering --------
 
-        df_transformed = raw_data_df
+        df_transformed = raw_data_df_2
 
         # loggin
-        logging.info("Transformación de datos completa")
+        buf = StringIO()
+        raw_data_df_2.info(buf=buf)
+        logging.info("Transformación de datos completa:\n%s",
+                     buf.getvalue())
 
         return df_transformed
 

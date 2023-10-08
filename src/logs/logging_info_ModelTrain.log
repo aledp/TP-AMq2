@@ -1,8 +1,39 @@
-2023-10-07 11:38:49 - root - INFO - Carga de datos completa. Columanas del dataset:
-Index(['Item_Identifier', 'Item_Weight', 'Item_Fat_Content', 'Item_Visibility',
-       'Item_Type', 'Item_MRP', 'Outlet_Identifier', 'establishment_age',
-       'Outlet_Size', 'Outlet_Location_Type', 'Item_Outlet_Sales',
-       'Item_MRP_Categories', 'Outlet_Type_Grocery Store',
-       'Outlet_Type_Supermarket Type1', 'Outlet_Type_Supermarket Type2',
-       'Outlet_Type_Supermarket Type3'],
-      dtype='object')
+2023-10-08 01:35:39 - root - INFO - Carga de datos completa. Dataset info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 14204 entries, 0 to 14203
+Data columns (total 14 columns):
+ #   Column                         Non-Null Count  Dtype  
+---  ------                         --------------  -----  
+ 0   Item_Identifier                14204 non-null  object 
+ 1   Item_Weight                    14204 non-null  float64
+ 2   Item_Visibility                14204 non-null  float64
+ 3   Item_MRP                       14204 non-null  int64  
+ 4   Outlet_Identifier              14204 non-null  object 
+ 5   establishment_age              14204 non-null  int64  
+ 6   Outlet_Size                    14204 non-null  int64  
+ 7   Outlet_Location_Type           14204 non-null  int64  
+ 8   Item_Outlet_Sales              8523 non-null   float64
+ 9   Set                            14204 non-null  object 
+ 10  Outlet_Type_Grocery Store      14204 non-null  int64  
+ 11  Outlet_Type_Supermarket Type1  14204 non-null  int64  
+ 12  Outlet_Type_Supermarket Type2  14204 non-null  int64  
+ 13  Outlet_Type_Supermarket Type3  14204 non-null  int64  
+dtypes: float64(3), int64(8), object(3)
+memory usage: 1.5+ MB
+
+2023-10-08 01:35:39 - root - INFO - Division en train y test exitosa
+2023-10-08 01:35:39 - root - INFO - Tamaño Train set:
+(8523, 11)
+2023-10-08 01:35:39 - root - INFO - Tamaño Test set :
+(5681, 10)
+2023-10-08 01:35:39 - root - INFO - Métricas del Modelo:
+2023-10-08 01:35:39 - root - INFO - ENTRENAMIENTO: RMSE: 1169.35 - R2: 0.5284:
+%s
+2023-10-08 01:35:39 - root - INFO - VALIDACIÓN: RMSE: 1146.66 - R2: 0.5526:
+%s
+2023-10-08 01:35:39 - root - INFO - 
+Coeficientes del Modelo:
+2023-10-08 01:35:39 - root - INFO - Intersección: 243.07:
+%s
+2023-10-08 01:35:39 - root - INFO - Coeficientes del modelo:
+LinearRegression()
