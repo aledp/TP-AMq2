@@ -33,6 +33,7 @@ class ModelTrainingPipeline(object):
         # seteo de las rutas de input y model
         self.input_path = input_path
         self.output_path = model_path
+         
 
     def read_data(self) -> pd.DataFrame:
         """
@@ -53,7 +54,7 @@ class ModelTrainingPipeline(object):
 
         return processed_data_df
 
-    def model_training(self, processed_data_df: pd.DataFrame) -> None:
+    def model_training(self, processed_data_df: pd.DataFrame):
         """
         COMPLETAR DOCSTRING
 
@@ -116,15 +117,13 @@ class ModelTrainingPipeline(object):
         # Logging: Coeficientes del modelo
         coef = pd.DataFrame(x_train.columns, columns=['features'])
         coef['Coeficiente Estimados'] = model.coef_
-        logging.info("Coeficientes del modelo:\n%s", model)
+        logging.info("Coeficientes del modelo:\n%s", coef)
 
-        # ----- Serializar modelo --------
+        # ----- model return -----
 
-        # Guardar el modelo en un archivo pickle
-        with open(self.output_path, 'wb') as file:
-            pickle.dump(model, file)
+        logging.info("Tipo de modelo:\n%s",model)
 
-        return None
+        return model
 
     def model_dump(self, model_trained) -> None:
         """
@@ -132,7 +131,10 @@ class ModelTrainingPipeline(object):
 
         """
 
-        # COMPLETAR CON CÓDIGO
+        # Serialización del modelo
+        with open(self.output_path, 'wb') as file_model:
+            pickle.dump(model_trained, file_model)
+            file_model.close()
 
         return None
 
