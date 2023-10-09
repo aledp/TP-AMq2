@@ -64,7 +64,7 @@ class MakePredictionPipeline(object):
 
         return None
 
-    def make_predictions(self, data_df: DataFrame) -> pd.DataFrame:
+    def make_predictions(self, data_df: pd.DataFrame) -> pd.DataFrame:
         """
         COMPLETAR DOCSTRING
         """
@@ -111,17 +111,20 @@ class MakePredictionPipeline(object):
 
         return data_with_prediction_df
 
-    def write_predictions(self, predicted_data: DataFrame) -> None:
+    def write_predictions(self, predicted_data_df: pd.DataFrame) -> None:
         """
         COMPLETAR DOCSTRING
         """
+        ruta=self.output_patha
+        logging.info("self.output_path: ", ruta)
+        predicted_data_df.to_csv(self.output_path)
 
         return None
 
     def run(self):
 
         data = self.load_data()
-        self.load_model()
+        self.load_model() 
         df_preds = self.make_predictions(data)
         self.write_predictions(df_preds)
 
@@ -141,7 +144,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # run PredictionPipeline
-    spark = Spark()  # ¿¿ todavia ni idea de para que esta eso????
+    ##spark = Spark()  # ¿¿ todavia ni idea de para que esta eso????
 
     pipeline = MakePredictionPipeline(input_path=args.input,
                                       output_path=args.model,
