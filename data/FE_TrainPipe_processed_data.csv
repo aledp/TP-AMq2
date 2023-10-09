@@ -1,4 +1,4 @@
-Item_Identifier,Item_Weight,Item_Visibility,Item_MRP,Outlet_Identifier,establishment_age,Outlet_Size,Outlet_Location_Type,Item_Outlet_Sales,Set,Outlet_Type_Grocery Store,Outlet_Type_Supermarket Type1,Outlet_Type_Supermarket Type2,Outlet_Type_Supermarket Type3
+Item_Identifier,Item_Weight,Item_Visibility,Item_MRP,Outlet_Identifier,Outlet_Establishment_Year,Outlet_Size,Outlet_Location_Type,Item_Outlet_Sales,Set,Outlet_Type_Grocery Store,Outlet_Type_Supermarket Type1,Outlet_Type_Supermarket Type2,Outlet_Type_Supermarket Type3
 FDA15,9.3,0.016047301,4,OUT049,20,1,2,3735.138,train,0,1,0,0
 DRC01,5.92,0.019278216,1,OUT018,10,1,0,443.4228,train,0,0,1,0
 FDN15,17.5,0.016760075,2,OUT049,20,1,2,2097.27,train,0,1,0,0

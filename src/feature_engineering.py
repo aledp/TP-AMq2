@@ -92,12 +92,13 @@ class FeatureEngineeringPipeline(object):
 
         raw_data_df['Outlet_Establishment_Year'] = (
             reference_year - raw_data_df['Outlet_Establishment_Year'])
-        raw_data_df = raw_data_df.rename(columns={'Outlet_Establishment_Year':
-                                                  'establishment_age'})
+        # # BORRAR ESTO:
+        # # raw_data_df = raw_data_df.rename(columns={'Outlet_Establishment_Year':
+        # #                                           'establishment_age'})
 
         # loggin
-        description = raw_data_df['establishment_age'].describe()
-        logging.info("Variable 'establishment_age':\n%s", description)
+        description = raw_data_df['Outlet_Establishment_Year'].describe()
+        logging.info("Variable 'Outlet_Establishment_Year':\n%s", description)
 
         # -------- labels unification:'Item_Fat_Content' --------
         raw_data_df['Item_Fat_Content'] = raw_data_df['Item_Fat_Content'].replace(

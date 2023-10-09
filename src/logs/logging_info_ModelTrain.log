@@ -1,4 +1,4 @@
-2023-10-08 15:56:11 - root - INFO - Carga de datos completa. Dataset info:
+2023-10-08 18:38:32 - root - INFO - Carga de datos completa. Dataset info:
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 14204 entries, 0 to 14203
 Data columns (total 14 columns):
@@ -9,7 +9,7 @@ Data columns (total 14 columns):
  2   Item_Visibility                14204 non-null  float64
  3   Item_MRP                       14204 non-null  int64  
  4   Outlet_Identifier              14204 non-null  object 
- 5   establishment_age              14204 non-null  int64  
+ 5   Outlet_Establishment_Year      14204 non-null  int64  
  6   Outlet_Size                    14204 non-null  int64  
  7   Outlet_Location_Type           14204 non-null  int64  
  8   Item_Outlet_Sales              8523 non-null   float64
@@ -21,31 +21,31 @@ Data columns (total 14 columns):
 dtypes: float64(3), int64(8), object(3)
 memory usage: 1.5+ MB
 
-2023-10-08 15:56:11 - root - INFO - Division en train y test exitosa
-2023-10-08 15:56:11 - root - INFO - Tamaño Train set:
+2023-10-08 18:38:32 - root - INFO - Division en train y test exitosa
+2023-10-08 18:38:32 - root - INFO - Tamaño Train set:
 (8523, 11)
-2023-10-08 15:56:11 - root - INFO - Tamaño Test set :
+2023-10-08 18:38:32 - root - INFO - Tamaño Test set :
 (5681, 10)
-2023-10-08 15:56:11 - root - INFO - Métricas del Modelo:
-2023-10-08 15:56:11 - root - INFO - ENTRENAMIENTO: RMSE: 1169.35 - R2: 0.5284:
+2023-10-08 18:38:33 - root - INFO - Métricas del Modelo:
+2023-10-08 18:38:33 - root - INFO - ENTRENAMIENTO: RMSE: 1169.35 - R2: 0.5284:
 %s
-2023-10-08 15:56:11 - root - INFO - VALIDACIÓN: RMSE: 1146.66 - R2: 0.5526:
+2023-10-08 18:38:33 - root - INFO - VALIDACIÓN: RMSE: 1146.66 - R2: 0.5526:
 %s
-2023-10-08 15:56:11 - root - INFO - 
+2023-10-08 18:38:33 - root - INFO - 
 Coeficientes del Modelo:
-2023-10-08 15:56:11 - root - INFO - Intersección: 243.07:
+2023-10-08 18:38:33 - root - INFO - Intersección: 243.07:
 %s
-2023-10-08 15:56:11 - root - INFO - Coeficientes del modelo:
+2023-10-08 18:38:33 - root - INFO - Coeficientes del modelo:
                         features  Coeficiente Estimados
 0                    Item_Weight              -2.332949
 1                Item_Visibility            -311.774516
 2                       Item_MRP             825.276595
-3              establishment_age             -10.632046
+3      Outlet_Establishment_Year             -10.632046
 4                    Outlet_Size             102.518103
 5           Outlet_Location_Type              27.760861
 6      Outlet_Type_Grocery Store           -1664.691331
 7  Outlet_Type_Supermarket Type1             191.570173
 8  Outlet_Type_Supermarket Type2            -242.596116
 9  Outlet_Type_Supermarket Type3            1715.717274
-2023-10-08 15:56:11 - root - INFO - Tipo de modelo:
+2023-10-08 18:38:33 - root - INFO - Tipo de modelo:
 LinearRegression()
