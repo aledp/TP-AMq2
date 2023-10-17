@@ -1,31 +1,63 @@
-2023-10-17 08:15:22 - root - INFO - input_path:
-D:\Github_aledp\ceia_ApMaq2\TP-AMq2\data\Test_BigMart.csv
-2023-10-17 08:15:22 - root - INFO - model_path:
+2023-10-17 18:20:35 - root - INFO - input_path:
+D:\Github_aledp\ceia_ApMaq2\TP-AMq2\data\FE_TrainPipe_processed_data.csv
+2023-10-17 18:20:35 - root - INFO - model_path:
 D:\Github_aledp\ceia_ApMaq2\TP-AMq2\data\modeloDump.pkl
-2023-10-17 08:15:22 - root - INFO - output_path:
+2023-10-17 18:20:35 - root - INFO - output_path:
 D:\Github_aledp\ceia_ApMaq2\TP-AMq2\data\predicted_data.csv
-2023-10-17 08:15:22 - root - INFO - Carga de datos completa:
+2023-10-17 18:20:35 - root - INFO - Carga de datos completa:
 <class 'pandas.core.frame.DataFrame'>
-RangeIndex: 5681 entries, 0 to 5680
-Data columns (total 11 columns):
- #   Column                     Non-Null Count  Dtype  
----  ------                     --------------  -----  
- 0   Item_Identifier            5681 non-null   object 
- 1   Item_Weight                4705 non-null   float64
- 2   Item_Fat_Content           5681 non-null   object 
- 3   Item_Visibility            5681 non-null   float64
- 4   Item_Type                  5681 non-null   object 
- 5   Item_MRP                   5681 non-null   float64
- 6   Outlet_Identifier          5681 non-null   object 
- 7   Outlet_Establishment_Year  5681 non-null   int64  
- 8   Outlet_Size                4075 non-null   object 
- 9   Outlet_Location_Type       5681 non-null   object 
- 10  Outlet_Type                5681 non-null   object 
-dtypes: float64(3), int64(1), object(7)
-memory usage: 488.3+ KB
+RangeIndex: 14204 entries, 0 to 14203
+Data columns (total 14 columns):
+ #   Column                         Non-Null Count  Dtype  
+---  ------                         --------------  -----  
+ 0   Item_Identifier                14204 non-null  object 
+ 1   Item_Weight                    14204 non-null  float64
+ 2   Item_Visibility                14204 non-null  float64
+ 3   Item_MRP                       14204 non-null  int64  
+ 4   Outlet_Identifier              14204 non-null  object 
+ 5   Outlet_Establishment_Year      14204 non-null  int64  
+ 6   Outlet_Size                    14204 non-null  int64  
+ 7   Outlet_Location_Type           14204 non-null  int64  
+ 8   Item_Outlet_Sales              8523 non-null   float64
+ 9   Set                            14204 non-null  object 
+ 10  Outlet_Type_Grocery Store      14204 non-null  int64  
+ 11  Outlet_Type_Supermarket Type1  14204 non-null  int64  
+ 12  Outlet_Type_Supermarket Type2  14204 non-null  int64  
+ 13  Outlet_Type_Supermarket Type3  14204 non-null  int64  
+dtypes: float64(3), int64(8), object(3)
+memory usage: 1.5+ MB
 
-2023-10-17 08:15:22 - root - INFO - El archivo es un pickle válido.
-2023-10-17 08:15:22 - root - INFO - Modelo cargado:
+2023-10-17 18:20:36 - root - INFO - El archivo es un pickle válido.
+2023-10-17 18:20:36 - root - INFO - Modelo cargado:
 LinearRegression()
-2023-10-17 08:15:22 - root - INFO - columnas_necesarias_pred:
-<class 'list'>
+2023-10-17 18:20:36 - root - INFO - ---- columnas en data_df -----:
+Index(['Item_Identifier', 'Item_Weight', 'Item_Visibility', 'Item_MRP',
+       'Outlet_Identifier', 'Outlet_Establishment_Year', 'Outlet_Size',
+       'Outlet_Location_Type', 'Item_Outlet_Sales', 'Set',
+       'Outlet_Type_Grocery Store', 'Outlet_Type_Supermarket Type1',
+       'Outlet_Type_Supermarket Type2', 'Outlet_Type_Supermarket Type3'],
+      dtype='object')
+2023-10-17 18:20:36 - root - INFO - columnas_necesarias_pred:
+['Item_Weight', 'Item_Visibility', 'Item_MRP', 'Outlet_Establishment_Year', 'Outlet_Size', 'Outlet_Location_Type', 'Outlet_Type_Grocery Store', 'Outlet_Type_Supermarket Type1', 'Outlet_Type_Supermarket Type2', 'Outlet_Type_Supermarket Type3']
+2023-10-17 18:20:36 - root - INFO - data_necesarias_df:
+Index(['Item_Weight', 'Item_Visibility', 'Item_MRP',
+       'Outlet_Establishment_Year', 'Outlet_Size', 'Outlet_Location_Type',
+       'Outlet_Type_Grocery Store', 'Outlet_Type_Supermarket Type1',
+       'Outlet_Type_Supermarket Type2', 'Outlet_Type_Supermarket Type3'],
+      dtype='object')
+2023-10-17 18:20:36 - root - INFO - Predicción completa:
+   Item_Outlet_Sales_Predicted
+0                  3654.448368
+1                   802.129083
+2                  1984.542773
+3                   786.145344
+4                  1103.896739
+2023-10-17 18:20:36 - root - INFO - Dataframe con las predicciones:
+  Item_Identifier Outlet_Identifier  Item_Outlet_Sales_Predicted
+0           FDA15            OUT049                  3654.448368
+1           DRC01            OUT018                   802.129083
+2           FDN15            OUT049                  1984.542773
+3           FDX07            OUT010                   786.145344
+4           NCD19            OUT013                  1103.896739
+2023-10-17 18:20:36 - root - INFO - self.output_path:
+D:\Github_aledp\ceia_ApMaq2\TP-AMq2\data\predicted_data.csv

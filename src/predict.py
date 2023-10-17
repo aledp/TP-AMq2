@@ -27,10 +27,12 @@ class MakePredictionPipeline(object):
             filemode='w',
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S')
-        
-        error_handler = logging.FileHandler('./logs/logging_info_predict.log') 
-        error_handler.setLevel(logging.ERROR)  # Guardará solo mensajes de nivel ERROR
-        error_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+        error_handler = logging.FileHandler('./logs/logging_info_predict.log')
+        # Guardará solo mensajes de nivel ERROR
+        error_handler.setLevel(logging.ERROR)
+        error_formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         error_handler.setFormatter(error_formatter)
         # manejador al logger
         logger = logging.getLogger()
@@ -40,12 +42,12 @@ class MakePredictionPipeline(object):
         self.input_path = input_path
         self.model_path = model_path
         self.output_path = output_path
-        self.model=model
-        
+        self.model = model
+
         # Logging
-        logging.info("input_path:\n%s",self.input_path)
-        logging.info("model_path:\n%s",self.model_path)
-        logging.info("output_path:\n%s",self.output_path)
+        logging.info("input_path:\n%s", self.input_path)
+        logging.info("model_path:\n%s", self.model_path)
+        logging.info("output_path:\n%s", self.output_path)
 
     def load_data(self) -> pd.DataFrame:
         """
@@ -72,15 +74,20 @@ class MakePredictionPipeline(object):
         try:
             with open(self.model_path, 'rb') as file:
                 model = pickle.load(file)
-                self.model=model
-                logging.info("El archivo es un pickle válido.")  
+                self.model = model
+                logging.info("El archivo es un pickle válido.")
                 logging.info("Modelo cargado:\n%s", model)
         except pickle.UnpicklingError as e:
-                logging.error("%s El archivo no es un pickle válido. Error: %s", type(e), e)
-                raise
+            logging.error(
+                "%s El archivo no es un pickle válido. Error: %s",
+                type(e),
+                e)
+            raise
         except Exception as e:
-                logging.error("%s Ocurrió un error al intentar cargar el archivo %s:", type(e), e)
-
+            logging.error(
+                "%s Ocurrió un error al intentar cargar el archivo %s:",
+                type(e),
+                e)
 
         return None
 
@@ -88,6 +95,8 @@ class MakePredictionPipeline(object):
         """
         COMPLETAR DOCSTRING
         """
+
+        logging.info("---- columnas en data_df -----:\n%s", data_df.columns)
 
         columnas_necesarias_pred = [
             'Item_Weight',
@@ -103,14 +112,14 @@ class MakePredictionPipeline(object):
         ]
 
         columnas_id = ['Item_Identifier', 'Outlet_Identifier']
-        logging.info("columnas_necesarias_pred:\n%s", type(columnas_necesarias_pred))
+        logging.info("columnas_necesarias_pred:\n%s", columnas_necesarias_pred)
         data_necesarias_df = data_df[columnas_necesarias_pred]
         logging.info("data_necesarias_df:\n%s", data_necesarias_df.columns)
         data_id_df = data_df[columnas_id]
 
         # ---- make_predictions ----
 
-        model_lr=self.model_path
+        model_lr = self.model
 
         predicted_data = model_lr.predict(data_necesarias_df)
 
@@ -136,8 +145,8 @@ class MakePredictionPipeline(object):
         """
         COMPLETAR DOCSTRING
         """
-        ruta=self.output_path
-        logging.info("self.output_path: ", ruta)
+        ruta = self.output_path
+        logging.info("self.output_path:\n%s", ruta)
         predicted_data_df.to_csv(self.output_path)
 
         return None
@@ -148,6 +157,7 @@ class MakePredictionPipeline(object):
         self.load_model()
         df_preds = self.make_predictions(data)
         self.write_predictions(df_preds)
+
 
 if __name__ == "__main__":
 
@@ -163,11 +173,8 @@ if __name__ == "__main__":
     # Parsear los argumentos de la línea de comandos
     args = parser.parse_args()
 
-    # run PredictionPipeline
-    ##spark = Spark()  # ¿¿ todavia ni idea de para que esta eso????
-
     # Instancia del modelo
-    pipeline = MakePredictionPipeline(input_path=args.input,                                
+    pipeline = MakePredictionPipeline(input_path=args.input,
                                       model_path=args.model,
                                       output_path=args.output)
     pipeline.run()
