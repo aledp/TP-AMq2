@@ -1,4 +1,4 @@
-2023-10-08 18:38:32 - root - INFO - Carga de datos completa. Dataset info:
+2023-10-18 08:02:57 - root - INFO - Carga de datos completa. Dataset info:
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 14204 entries, 0 to 14203
 Data columns (total 14 columns):
@@ -21,21 +21,21 @@ Data columns (total 14 columns):
 dtypes: float64(3), int64(8), object(3)
 memory usage: 1.5+ MB
 
-2023-10-08 18:38:32 - root - INFO - Division en train y test exitosa
-2023-10-08 18:38:32 - root - INFO - Tamaño Train set:
+2023-10-18 08:02:57 - root - INFO - Division en train y test exitosa
+2023-10-18 08:02:57 - root - INFO - Tamaño Train set:
 (8523, 11)
-2023-10-08 18:38:32 - root - INFO - Tamaño Test set :
+2023-10-18 08:02:57 - root - INFO - Tamaño Test set :
 (5681, 10)
-2023-10-08 18:38:33 - root - INFO - Métricas del Modelo:
-2023-10-08 18:38:33 - root - INFO - ENTRENAMIENTO: RMSE: 1169.35 - R2: 0.5284:
+2023-10-18 08:02:57 - root - INFO - Métricas del Modelo:
+2023-10-18 08:02:57 - root - INFO - ENTRENAMIENTO: RMSE: 1169.35 - R2: 0.5284:
 %s
-2023-10-08 18:38:33 - root - INFO - VALIDACIÓN: RMSE: 1146.66 - R2: 0.5526:
+2023-10-18 08:02:57 - root - INFO - VALIDACIÓN: RMSE: 1146.66 - R2: 0.5526:
 %s
-2023-10-08 18:38:33 - root - INFO - 
+2023-10-18 08:02:57 - root - INFO - 
 Coeficientes del Modelo:
-2023-10-08 18:38:33 - root - INFO - Intersección: 243.07:
+2023-10-18 08:02:57 - root - INFO - Intersección: 243.07:
 %s
-2023-10-08 18:38:33 - root - INFO - Coeficientes del modelo:
+2023-10-18 08:02:57 - root - INFO - Coeficientes del modelo:
                         features  Coeficiente Estimados
 0                    Item_Weight              -2.332949
 1                Item_Visibility            -311.774516
@@ -47,5 +47,11 @@ Coeficientes del Modelo:
 7  Outlet_Type_Supermarket Type1             191.570173
 8  Outlet_Type_Supermarket Type2            -242.596116
 9  Outlet_Type_Supermarket Type3            1715.717274
-2023-10-08 18:38:33 - root - INFO - Tipo de modelo:
+2023-10-18 08:02:57 - root - INFO - Tipo de modelo:
 LinearRegression()
+2023-10-18 08:02:57 - root - INFO - Tipo de modelo a exportar como pickle:
+LinearRegression()
+2023-10-18 08:02:57 - root - INFO - Ruta de guardado del modelo:
+D:\Github_aledp\ceia_ApMaq2\TP-AMq2\data\modeloDump.pkl
+2023-10-18 08:02:57 - root - INFO - Inicio de serializacion del modelo
+2023-10-18 08:02:57 - root - INFO - Finalización de serializacion del modelo
