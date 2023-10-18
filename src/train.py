@@ -1,11 +1,12 @@
 """
 train.py
 
-COMPLETAR DOCSTRING
+DESCRIPCIÓN: This module performs the training of a linear regression model.
+Loggin file name is: logging_info_ModelTrain.log. There you can see de final
+model coficients and other information about training process.
 
-DESCRIPCIÓN:
-AUTOR:
-FECHA:
+AUTHOR: Del Porto & Munar
+FECHA: 10/2023
 """
 
 # Imports
@@ -21,7 +22,7 @@ from sklearn.linear_model import LinearRegression
 
 class ModelTrainingPipeline(object):
 
-    def __init__(self, input_path, model_path,model=None):
+    def __init__(self, input_path, model_path, model=None):
         # Configuración del sistema de logs
         logging.basicConfig(
             filename='./logs/logging_info_ModelTrain.log',
@@ -37,7 +38,7 @@ class ModelTrainingPipeline(object):
 
     def read_data(self) -> pd.DataFrame:
         """
-        COMPLETAR DOCSTRING
+        Load .csv file where de data for training process is.
 
         :return pandas_df: The desired DataLake table as a DataFrame
         :rtype: pd.DataFrame
@@ -56,8 +57,10 @@ class ModelTrainingPipeline(object):
 
     def model_training(self, processed_data_df: pd.DataFrame) -> None:
         """
-        COMPLETAR DOCSTRING
+        Perfomrs the training process and save de model in self.model of the
+        class ModelTrainingPipeline instance object.
 
+        :rtype: None
         """
         # ----- division en train y test -----
 
@@ -81,7 +84,6 @@ class ModelTrainingPipeline(object):
         logging.info("Tamaño Test set :\n%s", df_test.shape)
 
         # ----- entrenamiento del modelo -----
-
         seed = 28
         self.model = LinearRegression()
 
@@ -98,7 +100,8 @@ class ModelTrainingPipeline(object):
 
         # Cálculo de los errores cuadráticos medios y Coeficiente de Determinación
         # (R^2)
-        mse_train = metrics.mean_squared_error(y_train, self.model.predict(x_train))
+        mse_train = metrics.mean_squared_error(
+            y_train, self.model.predict(x_train))
         r2_train = self.model.score(x_train, y_train)
 
         mse_val = metrics.mean_squared_error(y_val, y_pred)
@@ -120,20 +123,21 @@ class ModelTrainingPipeline(object):
         coef['Coeficiente Estimados'] = self.model.coef_
         logging.info("Coeficientes del modelo:\n%s", coef)
 
-        logging.info("Tipo de modelo:\n%s",self.model)
+        logging.info("Tipo de modelo:\n%s", self.model)
         return None
 
     def model_dump(self) -> None:
         """
-        COMPLETAR DOCSTRING
+        Serializes self.model of the class ModelTrainingPipeline instance object.
+        Save a pickle object in output_path.
 
+        :rtype: None
         """
 
         # Logging
         logging.info("Tipo de modelo a exportar como pickle:\n%s", self.model)
         logging.info("Ruta de guardado del modelo:\n%s", self.output_path)
         logging.info("Inicio de serializacion del modelo")
-        
 
         # Serialización del modelo
         with open(self.output_path, 'wb') as file_model:
@@ -144,13 +148,13 @@ class ModelTrainingPipeline(object):
         logging.info("Finalización de serializacion del modelo")
 
         return None
-        
+
     def run(self):
 
         processed_data = self.read_data()
-        self.model_training(processed_data) #model_trained = self.model_training(processed_data)
-        self.model_dump()#(model_trained)
-
+        # model_trained = self.model_training(processed_data)
+        self.model_training(processed_data)
+        self.model_dump()  # (model_trained)
 
 if __name__ == "__main__":
 

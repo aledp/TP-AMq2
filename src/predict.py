@@ -1,11 +1,12 @@
 """
 predict.py
 
-COMPLETAR DOCSTRING
+DESCRIPCIÓN: Este módulo realiza las tareas de predección de 'Item_Outlet_Sales.
+Loggin file name is: logging_info_predict.log. There you can see information 
+about inference process.
 
-DESCRIPCIÓN:
-AUTOR:
-FECHA:
+AUTHOR: Del Porto & Munar
+FECHA: 10/2023
 """
 
 # Imports
@@ -69,7 +70,7 @@ class MakePredictionPipeline(object):
 
     def load_model(self) -> None:
         """
-        Load de pickle model.
+        Load de pickle model from model_path.
         """
         try:
             with open(self.model_path, 'rb') as file:
@@ -93,7 +94,7 @@ class MakePredictionPipeline(object):
 
     def make_predictions(self, data_df: pd.DataFrame) -> pd.DataFrame:
         """
-        COMPLETAR DOCSTRING
+        tasking the inference function
         """
 
         logging.info("---- columnas en data_df -----:\n%s", data_df.columns)
@@ -143,7 +144,7 @@ class MakePredictionPipeline(object):
 
     def write_predictions(self, predicted_data_df: pd.DataFrame) -> None:
         """
-        COMPLETAR DOCSTRING
+        Write .csv file with id feaatures and predicted value. 
         """
         ruta = self.output_path
         logging.info("self.output_path:\n%s", ruta)

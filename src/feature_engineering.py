@@ -1,12 +1,16 @@
 """
 feature_engineering.py
 
-This module performs various data preprocessing and feature engineering steps on a CSV dataset.
+DESCRIPCIÓN: This module performs various data preprocessing and feature 
+engineering steps on a CSV dataset.
 
 Input data must be in a .csv file.
 
-AUTHOR: [Your Name]
-FECHA: [Date]
+Loggin file name is: logging_info_FE_"something". Where "something" depends on
+pipeline where the call of this scripts is.
+
+AUTHOR: Del Porto & Munar
+FECHA: 10/2023
 
 """
 # Imports
@@ -25,15 +29,28 @@ class FeatureEngineeringPipeline(object):
     :rtype: .csv file
     """
 
-    def __init__(self, input_path_1, output_path, input_path_2=None):
+    def __init__(
+            self,
+            input_path_1,
+            output_path,
+            input_path_2=None,
+            log_filename=None):
 
         # Configuración del sistema de logs
-        logging.basicConfig(
-            filename='./logs/logging_info_FE.log',
-            level=logging.INFO,
-            filemode='w',
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            datefmt='%Y-%m-%d %H:%M:%S')
+        if log_filename is not None:
+            logging.basicConfig(
+                filename=f'./logs/{log_filename}',
+                level=logging.INFO,
+                filemode='w',
+                format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                datefmt='%Y-%m-%d %H:%M:%S')
+        else:
+            logging.basicConfig(
+                filename='./logs/logging_info_FE.log',
+                level=logging.INFO,
+                filemode='w',
+                format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                datefmt='%Y-%m-%d %H:%M:%S')
 
         # seteo de las rutas de input y output
         self.input_path_1 = input_path_1
@@ -92,9 +109,6 @@ class FeatureEngineeringPipeline(object):
 
         raw_data_df['Outlet_Establishment_Year'] = (
             reference_year - raw_data_df['Outlet_Establishment_Year'])
-        # # BORRAR ESTO:
-        # # raw_data_df = raw_data_df.rename(columns={'Outlet_Establishment_Year':
-        # #                                           'establishment_age'})
 
         # loggin
         description = raw_data_df['Outlet_Establishment_Year'].describe()
@@ -145,11 +159,6 @@ class FeatureEngineeringPipeline(object):
         logging.info("missing values imputation: 'Outlet_Size':\n%s",
                      unique_pairs)
 
-        # ver / propuesta de mejora: reemplazar simplemente por small segun
-        # identificador no es conveniente dado que no automatiza.
-        # propongo probar reemplazar por el valor de mayor frecuecuencia
-        # correspondiente al tipo de tienda.
-
         # -------- 'Item_Fat_Content': new category --------
 
         # Lista de items donde no aplica el fat_content
@@ -192,11 +201,6 @@ class FeatureEngineeringPipeline(object):
         raw_data_df.loc[raw_data_df['Item_Type'] ==
                         'Non perishable', 'Item_Fat_Content'] = 'NA'
 
-        # ver / propuesta de mejora: se propone que este bloque esté antes
-        # del bloque de "'Item_Fat_Content': new category" porque sino la
-        # ultima linea tiene que ver con eso, es decir que se mezclan conceptos
-        # dentro del bloque (no queda bien modularizado).
-
         # loggin
         logging.info(
             "'Item_Type': new categories list:\n%s",
@@ -227,8 +231,6 @@ class FeatureEngineeringPipeline(object):
 
         raw_data_df_2 = raw_data_df.drop(
             columns=['Item_Type', 'Item_Fat_Content']).copy()
-        # ver: no entiendo para qué crea el dataframe raw_data_df_2.
-        # Tampoco por qué esta operación está en este bloque.
 
         # diccionario de mapeo para 'Outlet_Size'y 'Outlet_Location_Type'
         size_dicc = {'High': 2, 'Medium': 1, 'Small': 0}
@@ -276,7 +278,7 @@ class FeatureEngineeringPipeline(object):
         """
         Write the output data as .cvs file in the specified path.
 
-        :return df: Output oh the FeatureEngineeringPipeline
+        :return df: Output of the FeatureEngineeringPipeline
         :rtype: .csv
         """
 
@@ -306,6 +308,8 @@ if __name__ == "__main__":
                         help="Path to the second input")
     parser.add_argument("--output", "-o", required=True,
                         help="Path to the output CSV file")
+    parser.add_argument("--logfilename", "-l", required=True,
+                        help="Filename for logging output")
 
     # Parsear los argumentos de la línea de comandos
     args = parser.parse_args()
@@ -314,4 +318,6 @@ if __name__ == "__main__":
     FeatureEngineeringPipeline(
         input_path_1=args.input1,
         output_path=args.output,
-        input_path_2=args.input2).run()
+        input_path_2=args.input2,
+        log_filename=args.logfilename).run()
+    
