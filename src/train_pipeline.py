@@ -1,9 +1,5 @@
 import subprocess
 
-# subprocess.run(['Python', 'feature_engineering.py'])
-
-# subprocess.run(['Python', 'train.py'])
-
 subprocess.run(['python',
                 'feature_engineering.py',
                 '--input1',
@@ -23,4 +19,3 @@ subprocess.run(['python',
                 '--model',
                 '..\\data\\modeloDump.pkl'],
                check=True)
-

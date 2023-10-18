@@ -1,10 +1,10 @@
-2023-10-18 18:43:58 - root - INFO - input_path:
+2023-10-18 20:11:49 - root - INFO - input_path:
 ..\data\FE_InferencePipe_processed_data.csv
-2023-10-18 18:43:58 - root - INFO - model_path:
+2023-10-18 20:11:49 - root - INFO - model_path:
 ..\data\modeloDump.pkl
-2023-10-18 18:43:58 - root - INFO - output_path:
+2023-10-18 20:11:49 - root - INFO - output_path:
 ..\data\predicted_data.csv
-2023-10-18 18:43:58 - root - INFO - Carga de datos completa:
+2023-10-18 20:11:49 - root - INFO - Carga de datos completa:
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 14204 entries, 0 to 14203
 Data columns (total 14 columns):
@@ -27,37 +27,37 @@ Data columns (total 14 columns):
 dtypes: float64(3), int64(8), object(3)
 memory usage: 1.5+ MB
 
-2023-10-18 18:43:59 - root - INFO - El archivo es un pickle válido.
-2023-10-18 18:43:59 - root - INFO - Modelo cargado:
+2023-10-18 20:11:50 - root - INFO - El archivo es un pickle válido.
+2023-10-18 20:11:50 - root - INFO - Modelo cargado:
 LinearRegression()
-2023-10-18 18:43:59 - root - INFO - ---- columnas en data_df -----:
+2023-10-18 20:11:50 - root - INFO - ---- columnas en data_df -----:
 Index(['Item_Identifier', 'Item_Weight', 'Item_Visibility', 'Item_MRP',
        'Outlet_Identifier', 'Outlet_Establishment_Year', 'Outlet_Size',
        'Outlet_Location_Type', 'Item_Outlet_Sales', 'Set',
        'Outlet_Type_Grocery Store', 'Outlet_Type_Supermarket Type1',
        'Outlet_Type_Supermarket Type2', 'Outlet_Type_Supermarket Type3'],
       dtype='object')
-2023-10-18 18:43:59 - root - INFO - columnas_necesarias_pred:
+2023-10-18 20:11:50 - root - INFO - columnas_necesarias_pred:
 ['Item_Weight', 'Item_Visibility', 'Item_MRP', 'Outlet_Establishment_Year', 'Outlet_Size', 'Outlet_Location_Type', 'Outlet_Type_Grocery Store', 'Outlet_Type_Supermarket Type1', 'Outlet_Type_Supermarket Type2', 'Outlet_Type_Supermarket Type3']
-2023-10-18 18:43:59 - root - INFO - data_necesarias_df:
+2023-10-18 20:11:50 - root - INFO - data_necesarias_df:
 Index(['Item_Weight', 'Item_Visibility', 'Item_MRP',
        'Outlet_Establishment_Year', 'Outlet_Size', 'Outlet_Location_Type',
        'Outlet_Type_Grocery Store', 'Outlet_Type_Supermarket Type1',
        'Outlet_Type_Supermarket Type2', 'Outlet_Type_Supermarket Type3'],
       dtype='object')
-2023-10-18 18:43:59 - root - INFO - Predicción completa:
+2023-10-18 20:11:50 - root - INFO - Predicción completa:
    Item_Outlet_Sales_Predicted
 0                  3654.448368
 1                   802.129083
 2                  1984.542773
 3                   786.145344
 4                  1103.896739
-2023-10-18 18:43:59 - root - INFO - Dataframe con las predicciones:
+2023-10-18 20:11:50 - root - INFO - Dataframe con las predicciones:
   Item_Identifier Outlet_Identifier  Item_Outlet_Sales_Predicted
 0           FDA15            OUT049                  3654.448368
 1           DRC01            OUT018                   802.129083
 2           FDN15            OUT049                  1984.542773
 3           FDX07            OUT010                   786.145344
 4           NCD19            OUT013                  1103.896739
-2023-10-18 18:43:59 - root - INFO - self.output_path:
+2023-10-18 20:11:50 - root - INFO - self.output_path:
 ..\data\predicted_data.csv

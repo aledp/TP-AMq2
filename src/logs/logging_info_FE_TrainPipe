@@ -1,6 +1,6 @@
-2023-10-18 18:43:44 - root - INFO - Carga de datos completa
-2023-10-18 18:43:44 - root - INFO - Iniciando transformación de datos
-2023-10-18 18:43:44 - root - INFO - Variable 'Outlet_Establishment_Year': 
+2023-10-18 20:11:33 - root - INFO - Carga de datos completa
+2023-10-18 20:11:33 - root - INFO - Iniciando transformación de datos
+2023-10-18 20:11:33 - root - INFO - Variable 'Outlet_Establishment_Year': 
 count    14204.000000
 mean        21.169319
 std          8.371664
@@ -10,53 +10,53 @@ min         10.000000
 75%         32.000000
 max         34.000000
 Name: Outlet_Establishment_Year, dtype: float64
-2023-10-18 18:43:44 - root - INFO - Variable 'Item_Fat_Content' labels:
+2023-10-18 20:11:33 - root - INFO - Variable 'Item_Fat_Content' labels:
 ['Low Fat' 'Regular']
-2023-10-18 18:43:44 - root - INFO - Porcentaje inicial de valores perdidos en "Item_Weight": 
+2023-10-18 20:11:33 - root - INFO - Porcentaje inicial de valores perdidos en "Item_Weight": 
 17.17121937482399
-2023-10-18 18:43:47 - root - INFO - Porcentaje final de valores perdidos en "Item_Weight"
+2023-10-18 20:11:36 - root - INFO - Porcentaje final de valores perdidos en "Item_Weight"
 0.0:
-2023-10-18 18:43:47 - root - INFO - missing values imputation: 'Outlet_Size':
+2023-10-18 20:11:36 - root - INFO - missing values imputation: 'Outlet_Size':
   Outlet_Identifier Outlet_Size
 3            OUT010       Small
 8            OUT045       Small
 9            OUT017       Small
-2023-10-18 18:43:47 - root - INFO - 'Item_Fat_Content': new category NA':
+2023-10-18 20:11:36 - root - INFO - 'Item_Fat_Content': new category NA':
                 Item_Type Item_Fat_Content
 1             Soft Drinks               NA
 3   Fruits and Vegetables               NA
 4               Household               NA
 16     Health and Hygiene               NA
 18            Hard Drinks               NA
-2023-10-18 18:43:47 - root - INFO - 'Item_Type': new categories list:
+2023-10-18 20:11:36 - root - INFO - 'Item_Type': new categories list:
 ['Drinks' 'Meats' 'Fruits and Vegetables' 'Non perishable'
  'Processed Foods' 'Starchy Foods']
-2023-10-18 18:43:47 - root - INFO - Item_MRP:
+2023-10-18 20:11:36 - root - INFO - Item_MRP:
 [4, 1, 2, 3]
 Categories (4, int64): [1 < 2 < 3 < 4]
-2023-10-18 18:43:47 - root - INFO - Categories boundaries:
+2023-10-18 20:11:36 - root - INFO - Categories boundaries:
 0.00     31.2900
 0.25     94.0120
 0.50    142.2470
 0.75    185.8556
 1.00    266.8884
 Name: Item_MRP, dtype: float64
-2023-10-18 18:43:47 - root - INFO - Outlet_Size dicctionary:
+2023-10-18 20:11:36 - root - INFO - Outlet_Size dicctionary:
 {'High': 2, 'Medium': 1, 'Small': 0}
-2023-10-18 18:43:47 - root - INFO - Labels Outlet_Size encodded:
+2023-10-18 20:11:36 - root - INFO - Labels Outlet_Size encodded:
 [1 0 2]
-2023-10-18 18:43:47 - root - INFO - Outlet_Location_Type dicctionary:
+2023-10-18 20:11:36 - root - INFO - Outlet_Location_Type dicctionary:
 {'Tier 1': 2, 'Tier 2': 1, 'Tier 3': 0}
-2023-10-18 18:43:47 - root - INFO - Labels Outlet_Location_Type encodded:
+2023-10-18 20:11:36 - root - INFO - Labels Outlet_Location_Type encodded:
 [2 0 1]
-2023-10-18 18:43:47 - root - INFO - columns after 'Outlet_Type' encoding:
+2023-10-18 20:11:36 - root - INFO - columns after 'Outlet_Type' encoding:
 Index(['Item_Identifier', 'Item_Weight', 'Item_Visibility', 'Item_MRP',
        'Outlet_Identifier', 'Outlet_Establishment_Year', 'Outlet_Size',
        'Outlet_Location_Type', 'Item_Outlet_Sales', 'Set',
        'Outlet_Type_Grocery Store', 'Outlet_Type_Supermarket Type1',
        'Outlet_Type_Supermarket Type2', 'Outlet_Type_Supermarket Type3'],
       dtype='object')
-2023-10-18 18:43:47 - root - INFO - Transformación de datos completa:
+2023-10-18 20:11:36 - root - INFO - Transformación de datos completa:
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 14204 entries, 0 to 14203
 Data columns (total 14 columns):
