@@ -98,7 +98,7 @@ class FeatureEngineeringPipeline(object):
 
         # loggin
         description = raw_data_df['Outlet_Establishment_Year'].describe()
-        logging.info("Variable 'Outlet_Establishment_Year':\n%s", description)
+        logging.info("Variable 'Outlet_Establishment_Year': \n%s", description)
 
         # -------- labels unification:'Item_Fat_Content' --------
         raw_data_df['Item_Fat_Content'] = raw_data_df['Item_Fat_Content'].replace(
@@ -108,11 +108,9 @@ class FeatureEngineeringPipeline(object):
         labels = raw_data_df['Item_Fat_Content'].unique()
         logging.info("Variable 'Item_Fat_Content' labels:\n%s", labels)
 
-        # -------- missing values imputation: 'Item_Weight' --------
-
         # loggin
         logging.info(
-            '% inicial de valores perdidos en "Item_Weight":',
+            'Porcentaje inicial de valores perdidos en "Item_Weight": \n%s',
             raw_data_df['Item_Weight'].isnull().sum() /
             len(raw_data_df) *
             100)
@@ -128,7 +126,7 @@ class FeatureEngineeringPipeline(object):
                             'Item_Weight'] = mode
 
         logging.info(
-            '% final de valores perdidos en "Item_Weight":',
+            'Porcentaje final de valores perdidos en "Item_Weight"\n%s:',
             raw_data_df['Item_Weight'].isnull().sum() /
             len(raw_data_df) *
             100)
