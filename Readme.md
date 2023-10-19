@@ -18,7 +18,7 @@ Principalmente consiste en la refactorización del código en "notebook_analysis
 
 Machine Learning para BigMart
 
-Este proyecto de Machine Learning se enfoca en predecir las ventas de productos en las tiendas BigMart. Está compuesto de los scripts:
+Este proyecto de Machine Learning se enfoca en predecir las ventas de productos en las tiendas BigMart. Está compuesto de los scripts (disponibles en la carpeta "src"):
 
 ## `train_pipeline.py`
 
@@ -38,29 +38,29 @@ Este script realiza varias etapas de preprocesamiento y de feature_engineering e
 
 Los argumentos que deben pasarse al llamar a la funcion run de este módulo son:
 
-* input1: Ruta al archivo CSV con los datos de entrenamiento o el total del dataset 
+* input1: Ruta al archivo CSV con los datos para el entrenamiento o el total del dataset (disponible en la carpeta "data").
 
-* input2 (opcional): Ruta al archivo CSV del dataset de test.
+* input2 (opcional): Ruta al archivo CSV del dataset de test (disponible en la carpeta "data").
 
-* output: Ruta para guardar el dataset procesado (FE_TrainPipe_processed_data.csv para entrenamiento, FE_InferencePipe_processed_data.csv para inferencia)
+* output: Ruta para guardar el dataset procesado (FE_TrainPipe_processed_data.csv para entrenamiento, FE_InferencePipe_processed_data.csv para inferencia). (Se guarda en la carpeta "data").
 
 
 * Archivo de logs:
-Se genera un archivo de log para cada ejecución con el nombre especificado (logging_info_FE_TrainPipe para entrenamiento, logging_info_FE_InferencePipe para inferencia).
+Se genera un archivo de log para cada ejecución con el nombre especificado (logging_info_FE_TrainPipe para entrenamiento, logging_info_FE_InferencePipe para inferencia). (Disponible en la carpeta "logs" dentro de la carpeta "src")
 
 ## `train.py`
 
-Este script se encarga del entrenamiento de un modelo de regresión lineal utilizando el dataset procesado generado previamente por `feature_engineering.py`.
+Este script se encarga del entrenamiento de un modelo de regresión lineal utilizando el dataset procesado (disponible en la carpeta "data"). generado previamente por `feature_engineering.py`.
 
 Los argumentos que deben pasarse al llamar a la funcion run de este módulo son:
 
-* input: Ruta al archivo CSV de datos procesados
+* input: Ruta al archivo CSV de datos procesados. (Disponible en la carpeta "data").
 
-* model: Ruta para guardar el modelo entrenado en formato pickle (modeloDump.pkl)
+* model: Ruta para guardar el modelo entrenado en formato pickle (modeloDump.pkl).(Se guarda en la carpeta "data").
 
 * Archivo de logs:
 
-El archivo de logs se guarda como logging_info_ModelTrain.log.
+El archivo de logs se guarda como logging_info_ModelTrain.log. (Disponible en la carpeta "logs" dentro de la carpeta "src")
 
 
 ## `predict.py`
@@ -69,16 +69,16 @@ Este script realiza la predicción de las ventas de productos utilizando el mode
 
 Los argumentos que deben pasarse al llamar a la funcion run de este módulo son:
 
-* input: Ruta al archivo CSV de datos procesados para inferencia
+* input: Ruta al archivo CSV de datos procesados para inferencia. (Disponible en la carpeta "data").
 
-* model: Ruta al modelo entrenado en formato pickle
+* model: Ruta al modelo entrenado en formato pickle. (Disponible en la carpeta "data").
 
-* output: Ruta para guardar el archivo CSV con las predicciones (predicted_data.csv)
+* output: Ruta para guardar el archivo CSV con las predicciones (predicted_data.csv).(Se guarda en la carpeta "data").
 
 
 * Archivo de logs:
 
-El archivo de logs se guarda como logging_info_predict.log.
+El archivo de logs se guarda como logging_info_predict.log. (Disponible en la carpeta "logs" dentro de la carpeta "src")
 
 
 
